@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Омӯзиши забони кореягӣ</title>
+<style>
+:root{--bg:#f7f7f7;--card:#fff;--text:#3c3c3c;--mute:#777;--line:#e5e5e5;--green:#58cc02;--gd:#46a302;--red:#ff4b4b;--blue:#1cb0f6;--gold:#ffc800;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#131f24;--card:#1f2c33;--text:#e8eef1;--mute:#93a4ad;--line:#37464f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#131f24;--card:#1f2c33;--text:#e8eef1;--mute:#93a4ad;--line:#37464f;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:480px;margin:0 auto;padding:16px;min-height:100vh}
+.top{display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:16px}
+h1{font-size:22px;margin:0 0 4px}
+p.sub{color:var(--mute);margin:0 0 20px}
+.lesson{display:flex;align-items:center;gap:14px;width:100%;background:var(--card);border:2px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;color:var(--text);font:inherit;text-align:left;cursor:pointer}
+.lesson .ic{width:52px;height:52px;border-radius:50%;background:var(--green);color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;border-bottom:4px solid var(--gd);flex:none}
+.lesson.done .ic{background:var(--gold);border-color:#cc9f00}
+.lesson b{display:block;font-size:17px}.lesson small{color:var(--mute)}
+.bar{height:14px;background:var(--line);border-radius:8px;flex:1;margin:0 12px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--green);border-radius:8px;transition:width .3s}
+.q{font-size:22px;font-weight:800;margin:28px 0 16px}
+.big{font-size:72px;text-align:center;margin:16px 0;font-weight:700}
+.opt{display:block;width:100%;background:var(--card);border:2px solid var(--line);border-bottom-width:4px;border-radius:14px;padding:14px;margin-bottom:10px;font:inherit;font-size:18px;color:var(--text);cursor:pointer;text-align:center}
+.opt{font-size:28px}
+.opt.ok{border-color:var(--green);background:rgba(88,204,2,.15)}
+.opt.bad{border-color:var(--red);background:rgba(255,75,75,.15)}
+.btn{display:block;width:100%;background:var(--green);color:#fff;border:0;border-bottom:4px solid var(--gd);border-radius:14px;padding:14px;font:inherit;font-size:17px;font-weight:800;text-transform:uppercase;cursor:pointer;margin-top:16px}
+.btn.red{background:var(--red);border-bottom-color:#c33}
+.fb{margin-top:12px;font-weight:700;min-height:24px}
+.x{background:none;border:0;color:var(--mute);font-size:26px;cursor:pointer;padding:0}
+.center{text-align:center}
+.sec{font-size:14px;color:var(--mute);margin:22px 0 10px;text-transform:uppercase;letter-spacing:.04em}
+.stat{font-size:20px;margin:8px 0}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+var LESSONS=[
+{sec:"Китоб 1.1",t:"Феълҳо 1",e:"🚶",items:[["가다","рафтан"],["오다","омадан"],["먹다","хӯрдан"],["마시다","нӯшидан"],["자다","хобидан"],["일어나다","бедор шудан"],["공부하다","хондан, таҳсил кардан"],["일하다","кор кардан"],["쉬다","истироҳат кардан"],["만나다","вохӯрдан"],["보다","дидан"],["듣다","шунидан"],["말하다","гуфтан"],["읽다","хондан"],["쓰다","навиштан"],["배우다","омӯхтан"],["가르치다","таълим додан"]]},
+{t:"Феълҳо 2",e:"🛒",items:[["사다","харидан"],["팔다","фурӯхтан"],["만들다","сохтан"],["열다","кушодан"],["닫다","бастан"],["앉다","нишастан"],["서다","истодан"],["걷다","роҳ рафтан"],["뛰다","давидан"],["운전하다","рондан"],["기다리다","интизор шудан"],["시작하다","оғоз кардан"],["끝나다","тамом шудан"],["청소하다","тоза кардан"],["씻다","шустан"],["입다","пӯшидан"]]},
+{t:"Феълҳо 3",e:"🎁",items:[["벗다","кашидан (либос)"],["주다","додан"],["받다","гирифтан"],["보내다","фиристодан"],["가져오다","овардан"],["가져가다","бурдан"],["빌리다","қарз гирифтан"],["빌려주다","қарз додан"],["좋아하다","дӯст доштан"],["싫어하다","бад дидан"],["필요하다","лозим будан"]]},
+{t:"Сифатҳо",e:"📏",items:[["있다","вуҷуд доштан"],["없다","вуҷуд надоштан"],["크다","калон будан"],["작다","хурд будан"],["많다","зиёд будан"],["적다","кам будан"],["빠르다","тез будан"],["느리다","суст будан"],["비싸다","гарон будан"],["싸다","арзон будан"],["덥다","гарм будан"],["춥다","сард будан"],["길다","дароз будан"],["짧다","кӯтоҳ будан"],["높다","баланд будан"],["낮다","паст будан"],["좋다","хуб будан"],["나쁘다","бад будан"],["바쁘다","банд будан"],["피곤하다","хаста будан"],["아프다","бемор будан, дард кардан"],["건강하다","солим будан"]]},
+{sec:"Китоб 1.2",t:"Кишварҳо",e:"🌏",items:[["한국","Кореяи Ҷанубӣ"],["타지키스탄","Тоҷикистон"],["우즈베키스탄","Ӯзбекистон"],["네팔","Непал"],["인도네시아","Индонезия"],["동티모르","Тимори Шарқӣ"],["중국","Хитой"],["몽골","Муғулистон"],["캄보디아","Камбоҷа"],["미얀마","Мянмар"],["키르기스스탄","Қирғизистон"],["방글라데시","Бангладеш"],["태국","Тайланд"],["베트남","Ветнам"],["파키스탄","Покистон"],["스리랑카","Шри-Ланка"],["필리핀","Филиппин"]]},
+{t:"Касбҳо",e:"💼",items:[["학생","донишҷӯ"],["선생님","муаллим"],["회사원","корманди ширкат"],["주부","хонашин"],["경찰관","корманди полис"],["소방관","оташхомушкун"],["공무원","хизматчии давлатӣ"],["점원","фурӯшанда"],["의사","духтур"],["간호사","ҳамшира"],["요리사","ошпаз"],["운전기사","ронанда"],["기술자","муҳандис, инженер"],["목수","наҷҷор"],["농부","деҳқон"],["어부","моҳигир"]]},
+{t:"Ҷойҳо",e:"📍",items:[["여기","ин ҷо"],["저기","вай ҷо"],["거기","он ҷо"],["어디","куҷо"],["사무실","идора, офис"],["화장실","ҳоҷатхона"],["식당","ошхона"],["집","хона"],["기숙사","хобгоҳ"],["세탁소","ҷомашӯйхона, хушкахуй"],["미용실","сартарошхона"],["시장","бозор"],["마트","маркет"],["편의점","дӯкони шабонарӯзӣ"],["슈퍼마켓","супермаркет"],["열쇠","калид"]]},
+{t:"Ашёҳо",e:"👜",items:[["가족사진","акси оилавӣ"],["가방","сумка"],["지갑","ҳамён"],["여권","шиноснома"],["우산","чатр"],["거울","оина"],["화장품","косметика"],["빗","шона"],["헤어드라이어","фени мӯй"],["베개","болишт"],["이불","курпа"]]},
+{t:"Амалҳо",e:"🏃",items:[["텔레비전을 보다","тамошо кардани телевизор"],["장을 보다","харид кардан"],["일어나다","бедор шудан, аз ҷой хестан"],["자다","хобидан"],["쉬다","истироҳат кардан"],["씻다","шустан"],["커피를 마시다","қаҳва нӯшидан"],["아침/점심/저녁을 먹다","завтрак/обед/ужин хӯрдан"],["일하다","кор кардан"],["요리하다","таом пухтан"],["운동하다","варзиш кардан"],["전화하다","занг задан"],["회사에 가다","ба кор рафтан"],["집에 오다","ба хона омадан"],["살다","зиндагӣ кардан"],["있다","будан"],["없다","набудан"],["많다","зиёд будан"]]},
+{t:"Вақт",e:"⏰",items:[["지금","ҳозир"],["오늘","имрӯз"],["어제","дирӯз"],["내일","фардо"],["오전","пеш аз нисфирӯзӣ (то соати 12)"],["오후","пас аз нисфирӯзӣ (аз соати 12)"],["낮","рӯзона"],["밤","шаб"],["새벽","субхи содик"],["아침","субҳ"],["점심","нисфирӯзӣ"],["저녁","шом"]]},
+{t:"Оила",e:"👨‍👩‍👧",items:[["할아버지","бобо"],["할머니","бибӣ"],["아버지","падар"],["어머니","модар"],["형","бародар (калон) барои мардон"],["누나","апа (калон) барои мардон"],["나","ман"],["부인","ҳамсар (зан)"],["여동생","хоҳар (хурд)"]]}
+];
+LESSONS.push({sec:"Бозии омехта",t:"Бозии тасодуфӣ",e:"🎲",items:(function(){var seen={},o=[];LESSONS.forEach(function(l){l.items.forEach(function(it){if(!seen[it[0]]){seen[it[0]]=1;o.push(it)}})});return o})()});
+var S={xp:0,done:[]};
+try{var raw=localStorage.getItem("kr2");if(raw)S=JSON.parse(raw)}catch(e){}
+function save(){try{localStorage.setItem("kr2",JSON.stringify(S))}catch(e){}}
+var app=document.getElementById("app");
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function say(s){try{var u=new SpeechSynthesisUtterance(s);u.lang="ko-KR";speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+
+function home(){
+ var h='<div class="top"><span>🇰🇷 Забони кореягӣ</span><span>⭐ '+S.xp+' XP</span></div><h1>Роҳи шумо</h1><p class="sub">Дарсро интихоб кунед ва омӯхтанро оғоз намоед</p>';
+ var lastSec='';LESSONS.forEach(function(l,i){
+  var d=S.done.indexOf(i)>-1;if(l.sec&&l.sec!==lastSec){lastSec=l.sec;h+='<h2 class="sec">'+l.sec+'</h2>'}
+  h+='<button class="lesson'+(d?' done':'')+'" data-i="'+i+'"><span class="ic">'+(d?'✓':l.e)+'</span><span><b>'+l.t+'</b><small>'+l.items.length+' калима · '+(d?'гузаштааст':'оғоз кунед')+'</small></span></button>';
+ });
+ app.innerHTML=h;
+ [].forEach.call(app.querySelectorAll(".lesson"),function(b){b.onclick=function(){start(+b.dataset.i)}});
+}
+
+var Q,n,hearts,ok,locked,L,lastPos=-1;
+function start(i){
+ L=i;var items=LESSONS[i].items;
+ Q=shuffle(items).concat(shuffle(items).slice(0,3)).slice(0,10).map(function(it){return{it:it,rev:true}});
+ n=0;hearts=5;ok=0;question();
+}
+function question(){
+ if(hearts<=0)return end(false);
+ if(n>=Q.length)return end(true);
+ locked=false;
+ var q=Q[n],items=LESSONS[L].items,rev=q.rev;
+ var wrong=shuffle(LESSONS[LESSONS.length-1].items.filter(function(x){return x[0]!==q.it[0]&&x[1].indexOf(q.it[1])<0&&q.it[1].indexOf(x[1])<0})).slice(0,2);
+ var opts;do{opts=shuffle(wrong.concat([q.it]))}while(opts.indexOf(q.it)===lastPos);lastPos=opts.indexOf(q.it);
+ var h='<div class="top"><button class="x" id="quit">✕</button><div class="bar"><i style="width:'+(n/Q.length*100)+'%"></i></div><span>❤️ '+hearts+'</span></div>';
+ h+='<div class="q center">Тарҷумаро интихоб кунед</div><div class="big" style="font-size:30px">'+q.it[1]+'</div>';
+ if(!rev)h+='<div class="big" id="big">'+q.it[0]+' 🔊</div>';
+ opts.forEach(function(o,k){h+='<button class="opt" data-k="'+k+'">'+(rev?o[0]:o[1])+'</button>'});
+ h+='<div class="fb" id="fb"></div><button class="btn" id="next" style="display:none">Минбаъд</button>';
+ app.innerHTML=h;
+ document.getElementById("quit").onclick=home;
+ var big=document.getElementById("big");if(big){big.onclick=function(){say(q.it[0])};say(q.it[0])}
+ [].forEach.call(app.querySelectorAll(".opt"),function(b){b.onclick=function(){
+  if(locked)return;locked=true;
+  var pick=opts[+b.dataset.k],right=pick[0]===q.it[0],fb=document.getElementById("fb");
+  if(right){b.classList.add("ok");ok++;S.xp+=10;fb.textContent="✅ Дуруст! +10 XP";fb.style.color="var(--green)";say(q.it[0])}
+  else{b.classList.add("bad");hearts--;fb.textContent="❌ Ҷавоби дуруст: "+(rev?q.it[0]:q.it[1]);fb.style.color="var(--red)";
+   [].forEach.call(app.querySelectorAll(".opt"),function(c,j){if(opts[j][0]===q.it[0])c.classList.add("ok")})}
+  var nx=document.getElementById("next");nx.style.display="block";if(!right)nx.classList.add("red");
+  nx.onclick=function(){n++;question()};
+ }});
+}
+function end(win){
+ if(win&&S.done.indexOf(L)<0){S.done.push(L);S.xp+=20}
+ save();
+ app.innerHTML='<div class="center"><div class="big">'+(win?'🎉':'💔')+'</div><h1>'+(win?'Дарс анҷом ёфт!':'Ҷонҳо тамом шуданд')+'</h1><div class="stat">Ҷавобҳои дуруст: '+ok+'</div><div class="stat">⭐ Ҳамагӣ: '+S.xp+' XP</div><button class="btn" id="home">'+(win?'Идома додан':'Бори дигар кӯшиш кунед')+'</button></div>';
+ document.getElementById("home").onclick=home;
+}
+home();
+</script>
+</body>
+</html>
